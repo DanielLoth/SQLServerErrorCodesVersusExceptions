@@ -63,6 +63,7 @@
     <Build Include="InsertDummyData.sql" />
     <Build Include="Views.sql" />
     <Build Include="DataAccessProcedures.sql" />
+    <Build Include="Procedures.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Local.publish.xml" />

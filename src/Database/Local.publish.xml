@@ -6,7 +6,7 @@
     <DeployScriptFileName>Database.sql</DeployScriptFileName>
     <ProfileVersionNumber>1</ProfileVersionNumber>
     <TargetConnectionString>Data Source=.;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=True;TrustServerCertificate=True</TargetConnectionString>
-    <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
+    <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
     <DropObjectsNotInSource>True</DropObjectsNotInSource>
   </PropertyGroup>
 </Project>

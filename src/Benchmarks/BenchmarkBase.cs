@@ -16,20 +16,26 @@ public abstract class BenchmarkBase
         "Encrypt=True;" +
         "TrustServerCertificate=True";
 
-    protected static void ExecuteProcedure(string procedureName, int operationsPerInvoke)
+    protected static void ExecuteProcedure(string procedureName, int failureRatePercent)
     {
         using var con = new SqlConnection(ConnectionString);
-        using var cmd = con.CreateCommand();
-
-        cmd.CommandText = procedureName;
-        cmd.CommandType = CommandType.StoredProcedure;
 
         try
         {
             con.Open();
 
-            for (var i = 0; i < operationsPerInvoke; i++)
+            for (var i = 0; i < 10000; i++)
             {
+                using var cmd = con.CreateCommand();
+
+                var p = cmd.CreateParameter();
+                p.ParameterName = "ShouldFail";
+                p.Value = i < failureRatePercent * 100;
+                cmd.Parameters.Add(p);
+
+                cmd.CommandText = procedureName;
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 try
                 {
                     using var reader = cmd.ExecuteReader();
@@ -43,10 +49,6 @@ public abstract class BenchmarkBase
                 }
                 catch { }
             }
-        }
-        catch
-        {
-            // Discard
         }
         finally
         {
